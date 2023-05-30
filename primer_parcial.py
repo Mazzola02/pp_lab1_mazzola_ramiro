@@ -31,7 +31,7 @@ def mostrar_menu():
     print("20. Ingresar un valor y mostrar los jugadores , ordenados por posición en la cancha, que hayan tenido un porcentaje de tiros de campo superior a ese valor.")
     print("0. SALIR.")
 
-def ordenar_lista(lista):
+def ordenar_lista_ascendente(lista):
     hubo_swap = True
     while hubo_swap == True:
         hubo_swap = False
@@ -43,7 +43,12 @@ def ordenar_lista(lista):
                 lista[indice_b] = aux
                 hubo_swap = True
 #recibe una lista por parametro y la ordena usando metodo de burbujeo.
-
+def ordenar_lista_por_estadistica_descendente(lista,key):
+    for indice_a in range(len(lista)):
+        for indice_b in range(indice_a + 1, len(lista)):
+            if lista[indice_a]["estadisticas"][key] < lista[indice_b]["estadisticas"][key]:
+                lista[indice_a], lista[indice_b] = lista[indice_b], lista[indice_a]
+    return lista
 # ---- PUNTO 1 ----
 def mostrar_jugadores(lista:list): 
     for indice in range(len(lista)):
@@ -306,8 +311,54 @@ def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista):
     #recibe la lista por parametro e imprime a los jugadores que superen el valor ingresado con su posicion ordenada de forma alfabetica y sus recpectivos porcentajes
 
 # ---- PUNTO 23 ----
+def mostrar_posicion_jugador_estadistica(lista):
+    for indice in range(len(lista)):
+        nombre_jugador = lista[indice]["nombre"]
+        print("{}. {}".format(indice, nombre_jugador))
 
+    while True:
+        indice_jugador = input("Indicar índice de jugador: ")
+        
+        if indice_jugador.isdigit():
+            indice_jugador = int(indice_jugador)
+            if 0 <= indice_jugador <= 11:
+                break
+        print("Entrada inválida. Por favor, ingrese un número entre 0 y 11.")
+    nombre_jugador = lista[indice_jugador]["nombre"]
+    while True:
+        ranking = input("Seleccione un ranking(1-4): \n1. Puntos.\n2. Rebotes.\n3. Asistencias.\n4. Robos.")
+        if ranking == "1":
+            ordenar_lista_por_estadistica_descendente(lista,"puntos_totales")
+            for posicion in range(len(lista)):
+                if lista[posicion]["nombre"] == nombre_jugador:
+                    os.system('cls')
+                    print("{} es el jugador Nro {} en el ranking de puntos, con {} puntos.".format(nombre_jugador,posicion+1,lista[posicion]["estadisticas"]["puntos_totales"]))
+            break
+        elif ranking == "2":
+            ordenar_lista_por_estadistica_descendente(lista,"rebotes_totales")
+            for posicion in range(len(lista)):
+                if lista[posicion]["nombre"] == nombre_jugador:
+                    os.system('cls')
+                    print("{} es el jugador Nro {} en el ranking de rebotes, con {} rebotes.".format(nombre_jugador,posicion+1,lista[posicion]["estadisticas"]["rebotes_totales"]))
+            break
+        elif ranking == "3":
+            ordenar_lista_por_estadistica_descendente(lista,"asistencias_totales")
+            for posicion in range(len(lista)):
+                if lista[posicion]["nombre"] == nombre_jugador:
+                    os.system('cls')
+                    print("{} es el jugador Nro {} en el ranking de asistencias, con {} asistencias.".format(nombre_jugador,posicion+1,lista[posicion]["estadisticas"]["asistencias_totales"]))
+            break
+        elif ranking == "4":
+            ordenar_lista_por_estadistica_descendente(lista,"robos_totales")
+            for posicion in range(len(lista)):
+                if lista[posicion]["nombre"] == nombre_jugador:
+                    os.system('cls')
+                    print("{} es el jugador Nro {} en el ranking de robos, con {} robos.".format(nombre_jugador,posicion+1,lista[posicion]["estadisticas"]["robos_totales"]))
+            break
+        else:
+            print("Opcion invalida, intentelo de nuevo.")
 
+                                   
 def ejecutar_app():
     while True:
         os.system('cls')
@@ -432,7 +483,13 @@ def ejecutar_app():
             print("Ingresar un valor y mostrar los jugadores , ordenados por posición en la cancha, que hayan tenido un porcentaje de tiros de campo superior a ese valor.")
             ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista_nba)
             input("Pulse ENTER para volver al menu.")
-        
+
+        elif opcion == "23":
+            os.system('cls')
+            print("Mostrar de cada jugador cuál es su posición en cada estadistica.")
+            mostrar_posicion_jugador_estadistica(lista_nba)
+            input("Pulse ENTER para volver al menu.")
+
         elif opcion == "0":
             os.system('cls')
             print("""
