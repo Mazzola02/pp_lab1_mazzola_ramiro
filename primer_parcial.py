@@ -51,7 +51,7 @@ def mostrar_jugadores(lista:list):
     #recibe por parametro la lista de jugadores e imprime indice, nombre y posicion de cada jugador.
 
 # ---- PUNTO 2 ----
-def mostrar_estadisticas_por_indice(): 
+def mostrar_estadisticas_por_indice(lista:list): 
     while True:
         indice_jugador = input("Indicar índice de jugador (0-11): ")
         if indice_jugador.isdigit():
@@ -59,12 +59,40 @@ def mostrar_estadisticas_por_indice():
             if 0 <= indice_jugador <= 11:
                 break
         print("Entrada inválida. Por favor, ingrese un número entre 0 y 11.")
-    print(lista_nba[indice_jugador]["nombre"])
-    for keys in lista_nba[indice_jugador]["estadisticas"]:
-        print("{}: {}".format(keys,lista_nba[indice_jugador]["estadisticas"][keys]))
+    nombre_jugador = lista[indice_jugador]["nombre"]
+    estadisticas_jugador = lista[indice_jugador]["estadisticas"]
+    print(nombre_jugador)
+    for key in estadisticas_jugador:
+        key_modificada = key.replace("_", " ").capitalize()
+        print("{}: {}".format(key_modificada,estadisticas_jugador[key]))
     #Pide al usuario el indice de un jugador y muestra sus estadisticas.
 
 # ---- PUNTO 3 ---- no pude hacerlo :(
+def gurdar_estadisticas_jugador_por_indice(lista:list): 
+    while True:
+        indice_jugador = input("Indicar índice de jugador (0-11): ")
+        if indice_jugador.isdigit():
+            indice_jugador = int(indice_jugador)
+            if 0 <= indice_jugador <= 11:
+                break
+        print("Entrada inválida. Por favor, ingrese un número entre 0 y 11.")
+
+    lista_estadisticas_csv = []
+    nombre_jugador = lista[indice_jugador]["nombre"]
+    estadisticas_jugador = lista[indice_jugador]["estadisticas"]
+
+    for key in estadisticas_jugador:
+        key_modificada = key.replace("_", " ").capitalize()
+        lista_estadisticas_csv.append("{}: {}".format(key_modificada,estadisticas_jugador[key]))
+
+    archivo_csv = "estadisticas.csv"
+    with open(archivo_csv, "w") as file:
+        file.write(nombre_jugador + ": \n")
+        file.write("Posicion: {}".format(lista[indice_jugador]["posicion"] + "\n"))
+        for estadistica in lista_estadisticas_csv:
+            file.write(estadistica + "\n")
+
+    print("Jugador '{}' cargado con exito.".format(nombre_jugador))
 
 # ---- PUNTO 4 ----
 def mostrar_logros_por_nombre(lista):
@@ -78,7 +106,7 @@ def mostrar_logros_por_nombre(lista):
                 for logros in jugador["logros"]:
                     print(logros)
         if nombre not in lista_jugadores:
-            nombre = input("El nombre no se ingreso correctamente, intentelo de nuevo: ")
+            print("El nombre no se ingreso correctamente, intentelo de nuevo: ")
         else:
             break
     #Recibe la lista por parametro, pide al usuario que ingrese el nombre del jugador a mostrar y imprime sus logros.
@@ -260,9 +288,7 @@ def mostrar_jugador_con_mas_temporadas(lista:list):
 # ---- PUNTO 20 ----
 def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista):
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
-    if valor_ingresado < 0:
-        print("El valor tiene que ser mayor a 0")
-    else:
+    if valor_ingresado > 0:
         lista_jugadores_ordenada = []
         for jugador in lista:
             lista_jugadores_ordenada.append(jugador)
@@ -275,7 +301,12 @@ def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista):
         for jugador in lista_jugadores_ordenada:
             if jugador["estadisticas"]["porcentaje_tiros_de_campo"] > valor_ingresado:
                 print("{} - {}: {}%".format(jugador["nombre"], jugador["posicion"], jugador["estadisticas"]["porcentaje_tiros_de_campo"]))
+    else:
+        print("El valor tiene que ser mayor a 0")       
     #recibe la lista por parametro e imprime a los jugadores que superen el valor ingresado con su posicion ordenada de forma alfabetica y sus recpectivos porcentajes
+
+# ---- PUNTO 23 ----
+
 
 def ejecutar_app():
     while True:
@@ -291,12 +322,13 @@ def ejecutar_app():
         elif opcion == "2":
             os.system('cls')
             print("Mostrar estadisticas de jugador.")
-            mostrar_estadisticas_por_indice()
+            mostrar_estadisticas_por_indice(lista_nba)
             input("Pulse ENTER para volver al menu.")
 
         elif opcion == "3":
             os.system('cls')
-            print("Guardar las estadisticas del jugador seleccionado en un archivo CSV.")
+            print("Seleccionar un jugador y guardar sus estadisticas en un archivo CSV.")
+            gurdar_estadisticas_jugador_por_indice(lista_nba)
             input("Pulse ENTER para volver al menu.")
 
         elif opcion == "4":
