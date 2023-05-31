@@ -46,7 +46,8 @@ def ordenar_lista_ascendente(lista):
                 lista[indice_a] = lista[indice_b]
                 lista[indice_b] = aux
                 hubo_swap = True
-#recibe una lista por parametro y la ordena usando metodo de burbujeo.
+    #recibe una lista por parametro y la ordena usando metodo de burbujeo.
+    
 def ordenar_lista_por_estadistica_descendente(lista,key):
     for indice_a in range(len(lista)):
         for indice_b in range(indice_a + 1, len(lista)):
@@ -76,7 +77,7 @@ def mostrar_estadisticas_por_indice(lista:list):
         print("{}: {}".format(key_modificada,estadisticas_jugador[key]))
     #Pide al usuario el indice de un jugador y muestra sus estadisticas.
 
-# ---- PUNTO 3 ---- no pude hacerlo :(
+# ---- PUNTO 3 ---- 
 def gurdar_estadisticas_jugador_por_indice(lista:list): 
     while True:
         indice_jugador = input("Indicar índice de jugador (0-11): ")
@@ -104,7 +105,7 @@ def gurdar_estadisticas_jugador_por_indice(lista:list):
     print("Jugador '{}' cargado con exito.".format(nombre_jugador))
 
 # ---- PUNTO 4 ----
-def mostrar_logros_por_nombre(lista):
+def mostrar_logros_por_nombre(lista:list):
     while True:
         nombre = input("Ingresar el nombre del jugador: ")
         lista_jugadores = []
@@ -133,7 +134,7 @@ def mostrar_promedio_de_puntos_por_partido_del_dream_team(lista:list):
     #recibe la lista de jugadores por parametro, ordena los nombres e imprime el promedio total de puntos por partido del Dream Team.
 
 # ---- PUNTO 6 ----
-def mostrar_si_pertenece_salon_de_la_fama(lista):
+def mostrar_si_pertenece_salon_de_la_fama(lista:list):
     nombre = input("Ingresar el nombre del jugador: ")
     lista_jugadores = []
     lista_logros = []
@@ -250,7 +251,7 @@ def listar_jugadores_con_porcentaje_tiros_libres_mayor_a_x(lista:list):
     #recibe la lista de jugadores, pide al usuario que ingrese un valor mayor a 0 y lista a los jugadores que hayan tenido un porcentaje de tiros libres superior a ese valor.
 
 # ---- PUNTO 16 ----
-def mostrar_promedio_puntos_dream_team_sin_el_menor(lista):
+def mostrar_promedio_puntos_dream_team_sin_el_menor(lista:list):
     lista_puntos = []
     for jugador in lista:
         lista_puntos.append(jugador["estadisticas"]["promedio_puntos_por_partido"])
@@ -273,7 +274,7 @@ def mostrar_jugador_con_mas_logros(lista:list):
     #recibe la lista por parametro y muestra al jugador con la lista mas larga de logros.
 
 # ---- PUNTO 18 ----
-def listar_jugadores_con_porcentaje_tiros_triples_mayor_a_x(lista:list): #recibe la lista de jugadores, pide al usuario que ingrese un valor mayor a 0 y lista a los jugadores que hayan tenido un porcentaje de TIROS TRIPLES superior a ese valor.
+def listar_jugadores_con_porcentaje_tiros_triples_mayor_a_x(lista:list): 
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
     if valor_ingresado < 0:
         print("El valor tiene que ser mayor a 0")
@@ -295,7 +296,7 @@ def mostrar_jugador_con_mas_temporadas(lista:list):
     #recibe la lista de jugadores y calcula e imprime al jugador con el mayor numero de temporadas jugadas.
 
 # ---- PUNTO 20 ----
-def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista):
+def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista:list):
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
     if valor_ingresado > 0:
         lista_jugadores_ordenada = []
@@ -315,7 +316,7 @@ def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista):
     #recibe la lista por parametro e imprime a los jugadores que superen el valor ingresado con su posicion ordenada de forma alfabetica y sus recpectivos porcentajes
 
 # ---- PUNTO 23 ----
-def mostrar_posicion_jugador_estadistica(lista):
+def mostrar_posicion_jugador_estadistica(lista:list):
     for indice in range(len(lista)):
         nombre_jugador = lista[indice]["nombre"]
         print("{}. {}".format(indice, nombre_jugador))
@@ -366,7 +367,7 @@ def mostrar_posicion_jugador_estadistica(lista):
 #---- PUNTO EXTRA 2 ----
 
 #---- PUNTO EXTRA 3 ----
-def mostrar_mejor_jugador_por_valor(lista):
+def mostrar_mejor_jugador_por_valor(lista:list):
     for key in lista[0]["estadisticas"]:
         ordenar_lista_por_estadistica_descendente(lista,key)
         key_modificada = key.replace("_", " ")
@@ -526,7 +527,7 @@ def ejecutar_app():
             os.system('cls')
             print("4e. Mostrar qué jugador tiene las mejores estadísticas de todos.")
             input("Pulse ENTER para volver al menu.")
-            
+
         elif opcion == "0":
             os.system('cls')
             print("""
