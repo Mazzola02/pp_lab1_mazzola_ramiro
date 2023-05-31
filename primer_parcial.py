@@ -29,6 +29,10 @@ def mostrar_menu():
     print("18. Mostrar los jugadores que hayan tenido un porcentaje de tiros triples superior a x.")
     print("19. Mostrar el jugador con la mayor cantidad de temporadas jugadas.")
     print("20. Ingresar un valor y mostrar los jugadores , ordenados por posición en la cancha, que hayan tenido un porcentaje de tiros de campo superior a ese valor.")
+    print("1e. Mostrar la cantidad de jugadores que hay por cada posición")
+    print("2e. Mostrar la lista de jugadores ordenadas por la cantidad de All-Star de forma descendente.")
+    print("3e. Mostrar qué jugador tiene las mejores estadísticas en cada valor.")
+    print("4e. Mostrar qué jugador tiene las mejores estadísticas de todos.")
     print("0. SALIR.")
 
 def ordenar_lista_ascendente(lista):
@@ -121,7 +125,7 @@ def mostrar_promedio_de_puntos_por_partido_del_dream_team(lista:list):
     lista_jugadores_ordenada  = []
     for jugador in lista: 
         lista_jugadores_ordenada.append(jugador["nombre"])
-    ordenar_lista(lista_jugadores_ordenada)
+    ordenar_lista_ascendente(lista_jugadores_ordenada)
     for nombre_jugador in lista_jugadores_ordenada:
         for jugador in lista:
             if jugador["nombre"] == nombre_jugador:
@@ -357,8 +361,20 @@ def mostrar_posicion_jugador_estadistica(lista):
             break
         else:
             print("Opcion invalida, intentelo de nuevo.")
+#---- PUNTO EXTRA 1 ----
 
-                                   
+#---- PUNTO EXTRA 2 ----
+
+#---- PUNTO EXTRA 3 ----
+def mostrar_mejor_jugador_por_valor(lista):
+    for key in lista[0]["estadisticas"]:
+        ordenar_lista_por_estadistica_descendente(lista,key)
+        key_modificada = key.replace("_", " ")
+        print("Mayor cantidad de {}: {}({}).".format(key_modificada, lista[0]["nombre"],lista[0]["estadisticas"][key]))
+
+#---- PUNTO EXTRA 4 ----
+
+# ---------- APLICACION ----------
 def ejecutar_app():
     while True:
         os.system('cls')
@@ -490,6 +506,27 @@ def ejecutar_app():
             mostrar_posicion_jugador_estadistica(lista_nba)
             input("Pulse ENTER para volver al menu.")
 
+        elif opcion == "1e":
+            os.system('cls')
+            print("1e. Mostrarla cantidad de jugadores que hay por cada posición..")
+            input("Pulse ENTER para volver al menu.")
+
+        elif opcion == "2e":
+            os.system('cls')
+            print("2e. Mostrar la lista de jugadores ordenadas por la cantidad de All-Star de forma descendente.")
+            input("Pulse ENTER para volver al menu.")
+
+        elif opcion == "3e":
+            os.system('cls')
+            print("3e. Mostrar qué jugador tiene las mejores estadísticas en cada valor.")
+            mostrar_mejor_jugador_por_valor(lista_nba)
+            input("Pulse ENTER para volver al menu.")
+
+        elif opcion == "4e":
+            os.system('cls')
+            print("4e. Mostrar qué jugador tiene las mejores estadísticas de todos.")
+            input("Pulse ENTER para volver al menu.")
+            
         elif opcion == "0":
             os.system('cls')
             print("""
