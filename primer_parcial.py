@@ -47,7 +47,7 @@ def ordenar_lista_ascendente(lista):
                 lista[indice_b] = aux
                 hubo_swap = True
     #recibe una lista por parametro y la ordena usando metodo de burbujeo.
-    
+
 def ordenar_lista_por_estadistica_descendente(lista,key):
     for indice_a in range(len(lista)):
         for indice_b in range(indice_a + 1, len(lista)):
@@ -75,6 +75,7 @@ def mostrar_estadisticas_por_indice(lista:list):
     for key in estadisticas_jugador:
         key_modificada = key.replace("_", " ").capitalize()
         print("{}: {}".format(key_modificada,estadisticas_jugador[key]))
+        
     #Pide al usuario el indice de un jugador y muestra sus estadisticas.
 
 # ---- PUNTO 3 ---- 
@@ -363,7 +364,24 @@ def mostrar_posicion_jugador_estadistica(lista:list):
         else:
             print("Opcion invalida, intentelo de nuevo.")
 #---- PUNTO EXTRA 1 ----
-
+def mostrar_cantidad_por_posicion(lista:list):
+    contador_escolta = 0
+    contador_alapivot = 0
+    contador_alero = 0
+    contador_base = 0
+    for jugador in lista_nba:
+        if jugador["posicion"] == "Escolta":
+            contador_escolta += 1
+        elif jugador["posicion"] == "Ala-Pivot":
+            contador_alapivot += 1
+        elif jugador["posicion"] == "Base":
+            contador_base += 1
+        elif jugador["posicion"] == "Alero":
+            contador_alero += 1
+    print("Base: {}".format(contador_base))
+    print("Alero: {}".format(contador_alero))
+    print("Escolta: {}".format(contador_escolta))
+    print("Ala-Pivot: {}".format(contador_alapivot))
 #---- PUNTO EXTRA 2 ----
 
 #---- PUNTO EXTRA 3 ----
@@ -509,7 +527,8 @@ def ejecutar_app():
 
         elif opcion == "1e":
             os.system('cls')
-            print("1e. Mostrarla cantidad de jugadores que hay por cada posición..")
+            print("1e. Mostrarla cantidad de jugadores que hay por cada posición.")
+            mostrar_cantidad_por_posicion(lista_nba)
             input("Pulse ENTER para volver al menu.")
 
         elif opcion == "2e":
@@ -544,5 +563,5 @@ def ejecutar_app():
             os.system('cls')
             print("Opcion Incorrecta, intentelo nuevamente.")
             input("Pulse ENTER para volver al menu")
-        
+
 ejecutar_app()
