@@ -1,5 +1,3 @@
-import re
-import csv
 import json
 import os
 
@@ -66,8 +64,8 @@ def ordenar_lista_por_estadistica_descendente(lista,key):
 
 def ordenar_lista_dics_descendente(lista: list, clave: str):
     """
-    Ordena una lista de diccionarios en orden descendente según el valor de una clave.
-    Devuelve la lista ordenada utlizando el metodo de burbujeo.
+    Ordena una lista de diccionarios utlizando el metodo de burbujeo según el valor de una clave.
+    Devuelve la lista ordenada en orden descendeinte.
     """
     for indice_a in range(len(lista)):
         for indice_b in range(indice_a + 1, len(lista)):
@@ -211,6 +209,7 @@ def mostrar_jugador_con_mas_asistencias(lista:list):
 def listar_jugadores_con_promedio_de_puntos_por_partido_mayor_a_x(lista:list): 
     #recibe la lista de jugadores por parametro, pide al usuario que ingrese un valor mayor a 0 y lista a los jugadores que tengan un promedio de puntos por partido mayor al valor ingresado.
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
+    jugadores_encontrados = False
     if valor_ingresado < 0:
         print("El valor tiene que ser mayor a 0")
     else:
@@ -218,11 +217,17 @@ def listar_jugadores_con_promedio_de_puntos_por_partido_mayor_a_x(lista:list):
         for jugador in lista:
             if jugador["estadisticas"]["promedio_puntos_por_partido"] > valor_ingresado:
                 print("{} - {}".format(jugador["nombre"],jugador["estadisticas"]["promedio_puntos_por_partido"]))
+                jugadores_encontrados = True
+                
+        if not jugadores_encontrados:
+            os.system("cls")
+            print("Ningún jugador tiene un promedio de puntos por partido mayor a {}".format(valor_ingresado))
 
 # ---- PUNTO 11 ----
 def listar_jugadores_con_promedio_de_rebotes_por_partido_mayor_a_x(lista:list): 
     #recibe la lista de jugadores por parametro, pide al usuario que ingrese un valor mayor a 0 y lista a los jugadores que tengan un promedio de rebotes por partido mayor al valor ingresado.
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
+    jugadores_encontrados = False
     if valor_ingresado < 0:
         print("El valor tiene que ser mayor a 0")
     else:
@@ -230,11 +235,17 @@ def listar_jugadores_con_promedio_de_rebotes_por_partido_mayor_a_x(lista:list):
         for jugador in lista:
             if jugador["estadisticas"]["promedio_rebotes_por_partido"] > valor_ingresado:
                 print("{} - {}".format(jugador["nombre"], jugador["estadisticas"]["promedio_rebotes_por_partido"]))
+                jugadores_encontrados = True
+                
+        if not jugadores_encontrados:
+            os.system("cls")
+            print("Ningún jugador tiene un promedio de rebotes mayor a {}".format(valor_ingresado))
 
 # ---- PUNTO 12 ----
 def listar_jugadores_con_promedio_de_asistencias_por_partido_mayor_a_x(lista:list): 
     #recibe la lista de jugadores, pide al usuario que ingrese un valor mayor a 0 y lista a los jugadores que tengan un promedio de asistencias por partido mayor al valor ingresado.
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
+    jugadores_encontrados = False
     if valor_ingresado < 0:
         print("El valor tiene que ser mayor a 0")
     else:
@@ -242,6 +253,11 @@ def listar_jugadores_con_promedio_de_asistencias_por_partido_mayor_a_x(lista:lis
         for jugador in lista:
             if jugador["estadisticas"]["promedio_asistencias_por_partido"] > valor_ingresado:
                 print("{} - {}".format(jugador["nombre"], jugador["estadisticas"]["promedio_asistencias_por_partido"]))
+                jugadores_encontrados = True
+                
+        if not jugadores_encontrados:
+            os.system("cls")
+            print("Ningún jugador tiene un promedio de asistencias por partido mayor a {}".format(valor_ingresado))
 
 # ---- PUNTO 13 ----
 def mostrar_jugador_con_mas_robos(lista:list):
@@ -265,15 +281,23 @@ def mostrar_jugador_con_mas_robos(lista:list):
     
 # ---- PUNTO 15 ----
 def listar_jugadores_con_porcentaje_tiros_libres_mayor_a_x(lista:list): 
-    #recibe la lista de jugadores, pide al usuario que ingrese un valor mayor a 0 y lista a los jugadores que hayan tenido un porcentaje de tiros libres superior a ese valor.
+    #Recibe una lista de jugadores y muestra los jugadores que tienen un porcentaje de tiros libres superior a un valor ingresado. 
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
+    jugadores_encontrados = False  # Variable para verificar si se encontraron jugadores
+    
     if valor_ingresado < 0:
         print("El valor tiene que ser mayor a 0")
     else:
         print("Los jugadores con un porcentaje de tiros libres superior a {} son:".format(valor_ingresado))
+        
         for jugador in lista:
             if jugador["estadisticas"]["porcentaje_tiros_libres"] > valor_ingresado:
                 print("{} - {}%".format(jugador["nombre"], jugador["estadisticas"]["porcentaje_tiros_libres"]))
+                jugadores_encontrados = True
+                
+        if not jugadores_encontrados:
+            os.system("cls")
+            print("Ningún jugador tiene un porcentaje de tiros libres mayor a {}".format(valor_ingresado))
 
 # ---- PUNTO 16 ----
 def mostrar_promedio_puntos_dream_team_sin_el_menor(lista:list):
@@ -302,6 +326,7 @@ def mostrar_jugador_con_mas_logros(lista:list):
 def listar_jugadores_con_porcentaje_tiros_triples_mayor_a_x(lista:list): 
     #recibe la lista por parametro, pide al usuario que ingrese un valor y lista aquellos jugadores que tengan un porcentaje de tiros triples superior a ese valor.
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
+    jugadores_encontrados = False
     if valor_ingresado < 0:
         print("El valor tiene que ser mayor a 0")
     else:
@@ -309,6 +334,11 @@ def listar_jugadores_con_porcentaje_tiros_triples_mayor_a_x(lista:list):
         for jugador in lista:
             if jugador["estadisticas"]["porcentaje_tiros_triples"] > valor_ingresado:
                 print("{} - {}%".format(jugador["nombre"], jugador["estadisticas"]["porcentaje_tiros_triples"]))
+                jugadores_encontrados = True
+                
+        if not jugadores_encontrados:
+            os.system("cls")
+            print("Ningún jugador tiene un porcentaje de tiros triples mayor a {}".format(valor_ingresado))
 
 # ---- PUNTO 19 ----
 def mostrar_jugador_con_mas_temporadas(lista:list): 
@@ -324,6 +354,7 @@ def mostrar_jugador_con_mas_temporadas(lista:list):
 def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista:list):
     #recibe la lista por parametro e imprime a los jugadores que superen el valor ingresado con su posicion ordenada de forma alfabetica y sus recpectivos porcentajes.
     valor_ingresado = float(input("Ingrese el valor a comparar: "))
+    jugadores_encontrados = False
     if valor_ingresado > 0:
         lista_jugadores_ordenada = []
         for jugador in lista:
@@ -337,8 +368,13 @@ def ordenar_y_listar_jugadores_con_mas_tiros_de_campo_que_x(lista:list):
         for jugador in lista_jugadores_ordenada:
             if jugador["estadisticas"]["porcentaje_tiros_de_campo"] > valor_ingresado:
                 print("{} - {}: {}%".format(jugador["nombre"], jugador["posicion"], jugador["estadisticas"]["porcentaje_tiros_de_campo"]))
+                jugadores_encontrados = True
     else:
-        print("El valor tiene que ser mayor a 0")       
+        print("El valor tiene que ser mayor a 0")
+                
+    if not jugadores_encontrados:
+        os.system("cls")
+        print("Ningún jugador tiene mas de {} tiros de campo.".format(valor_ingresado))       
 
 # ---- PUNTO 23 ----
 def mostrar_posicion_jugador_estadistica(lista:list):
@@ -360,7 +396,9 @@ def mostrar_posicion_jugador_estadistica(lista:list):
         print("Entrada inválida. Por favor, ingrese un número entre 0 y 11.")
     nombre_jugador = lista[indice_jugador]["nombre"]
     while True:
-        ranking = input("Seleccione un ranking(1-4): \n1. Puntos.\n2. Rebotes.\n3. Asistencias.\n4. Robos.")
+        os.system("cls")
+        print("Seleccione el ranking para ver en que posicion se encuentra {}".format(nombre_jugador))
+        ranking = input("1. Puntos.\n2. Rebotes.\n3. Asistencias.\n4. Robos.\nIngrese una opcion (1-4): ")
         if ranking == "1":
             ordenar_lista_por_estadistica_descendente(lista,"puntos_totales")
             for posicion in range(len(lista)):
